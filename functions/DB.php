@@ -8,7 +8,7 @@ $password = "";
 
 try {
     $options = [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION , PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_OBJ];
-    $conn = new PDO("mysql:host=$servername;dbname=mydb", $username, $password,$options);
+    $conn = new PDO("mysql:host=$servername;dbname=weblog", $username, $password,$options);
     return $conn;
     //echo "New record created successfully";
 } catch(PDOException $e) {

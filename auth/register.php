@@ -1,5 +1,8 @@
 ﻿<?php
     require_once "../functions/DB.php";
+	
+	global $conn;
+    $error="";
     ?>
 <html dir="rtl" lang="fa-IR">
 <head>
@@ -17,6 +20,7 @@
                 <div class="col-lg-6">
                     <div class="card-body p-4 text-center">
                             <a href="#"><img src="../assets/Img/logo-main.png" alt="logo" class="pt-2 pb-4"></a>
+                        <h3><?php if($error !== ""){echo $error;} ?></h3>
                         <form action="register.php" method="post">
                             <div class="form-group">
                                 <input type="text" name="name" id="name" class="form-control" required placeholder="نام و نام خانوادگی">
