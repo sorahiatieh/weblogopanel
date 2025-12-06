@@ -1,30 +1,35 @@
 ﻿<?php
-    require_once "../functions/DB.php";
-	
-	global $conn;
-    $error="";
-    if(isset($_POST['submit'])){
-        if(
-                isset($_POST['name']) && !empty($_POST['name'])
-        && isset($_POST['email']) && !empty($_POST['email'])
-            && isset($_POST['password']) && !empty($_POST['password'])){
-        if($_POST['password']===$_POST['confirmPassword']){
-            $hashedPassword=password_hash($_POST['password'],PASSWORD_DEFAULT);
-            $sql="INSERT INTO users SET name=?, email=?, password=?";
-            $stmt=$conn->prepare($sql);
-            $stmt->execute([$_POST['name'],$_POST['email'],$hashedPassword]);
-            header("location:login.php");
-        }
-        else{
-            $error="مقدار پسورد و تکرار آن برابر نیستند!";
-        }
-    }
-    else{
-        $error="لطفا همه فیلدها را پر کنید!";
-    }
-    }
-	
-    ?>
+      require_once "../functions/users.php";
+
+      $error="";
+      if(isset($_POST['submit'])){
+          if(
+                  isset($_POST['name']) && !empty($_POST['name'])
+                  && isset($_POST['email']) && !empty($_POST['email'])
+                  && isset($_POST['password']) && !empty($_POST['password'])
+          ){
+              if($_POST['password'] === $_POST['confirm_password']){
+                  if(checkPassword($_POST['password'])){
+                      if(checkUniqueUser($_POST['email'])){
+                          $error = "این ایمیل تکراری است";
+                      }else{
+                          // create new user
+                          createUser($_POST['name'],$_POST['email'],$_POST['password']);
+                          header('Location: login.php');
+                      }
+                  }else{
+                      $error = "رمز عبور شما حداقل باید 6 کاراکتر باشد";
+                  }
+              }else{
+                  $error = "مقدار پسورد و تکرار آن برابر نیستند";
+              }
+          }else{
+              $error = "لطفا تمام فیلد ها را تکمیل کنید";
+          }
+      }
+
+?>
+
 <html dir="rtl" lang="fa-IR">
 <head>
     <title>عضویت</title>
@@ -38,22 +43,23 @@
     <section class="container maxw">
         <div class="card login  mx-md-5 mt-5 justify-content-center shadow-none">
             <div class="row">
+           
                 <div class="col-lg-6">
                     <div class="card-body p-4 text-center">
                             <a href="#"><img src="../assets/Img/logo-main.png" alt="logo" class="pt-2 pb-4"></a>
-                        <p><?php if($error !== ""){echo $error;} ?></p>
-                        <form action="register.php" method="post">
+                        <p style="color: red;"><?php  if($error!==""){ echo $error;}       ?>  </p>
+                        <form action="register.php" method="POST">
                             <div class="form-group">
                                 <input type="text" name="name" id="name" class="form-control"  placeholder="نام و نام خانوادگی">
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control" placeholder="آدرس ایمیل">
+                                <input type="email" name="email" id="mail" class="form-control" placeholder="آدرس ایمیل">
                             </div>
                             <div class="form-group">
                                 <input type="password" name="password" id="password" class="form-control"  placeholder="کلمه عبور">
                             </div>
                             <div class="form-group mb-4">
-                                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"  placeholder="تکرار کلمه عبور">
+                                <input type="password" name="confirm_password" id="password" class="form-control"  placeholder="تکرار کلمه عبور">
                             </div>
                             <button type="submit" name="submit" id="register" class="btn btn-block btn-success py-2 radius10 mb-4">عضویت</button>
                          </form>
