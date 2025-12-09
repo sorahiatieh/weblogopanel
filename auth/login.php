@@ -5,8 +5,8 @@
 	$error="";
 	if(isset($_POST['submit'])){
 		if(
-			isset($_POST['name']) && !empty($_POST['name'])
-			&& isset($_POST['email']) && !empty($_POST['email'])
+			isset($_POST['email']) && !empty($_POST['email'])
+			&& isset($_POST['password']) && !empty($_POST['password'])
 		){
             $user=checkUser($_POST['email']);
 			if($user){
