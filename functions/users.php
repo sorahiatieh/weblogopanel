@@ -11,7 +11,7 @@ function createUser($name,$email,$password)
     $stmt->execute([$name,$email,$hashed_password]);
 }
 
-function checkUniqueUser($email){
+function checkUser($email){
     $sql = "SELECT * FROM users WHERE email=?";
     global $conn;
     $stmt = $conn->prepare($sql);

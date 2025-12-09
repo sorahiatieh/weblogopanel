@@ -10,7 +10,7 @@
           ){
               if($_POST['password'] === $_POST['confirm_password']){
                   if(checkPassword($_POST['password'])){
-                      if(checkUniqueUser($_POST['email'])){
+                      if(checkUser($_POST['email'])){
                           $error = "این ایمیل تکراری است";
                       }else{
                           // create new user

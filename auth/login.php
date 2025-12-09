@@ -1,4 +1,33 @@
-﻿<html dir="rtl" lang="fa-IR">
+﻿<?php
+	require_once "../functions/users.php";
+	session_start();
+ 
+	$error="";
+	if(isset($_POST['submit'])){
+		if(
+			isset($_POST['name']) && !empty($_POST['name'])
+			&& isset($_POST['email']) && !empty($_POST['email'])
+		){
+            $user=checkUser($_POST['email']);
+			if($user){
+				if(password_verify($_POST['password'],$user->password)){
+                    $_SESSION['user']=$user->email;
+					header('Location: ../index.php');
+					
+					}else{
+						$error="اطلاعات وارد شده نامعتبر میباشد!";
+					}
+				}else{
+				$error="اطلاعات وارد شده نامعتبر میباشد!";
+				}
+			
+		}else{
+			$error = "لطفا تمام فیلد ها را تکمیل کنید";
+		}
+	}
+
+?>
+<html dir="rtl" lang="fa-IR">
 <head>
     <title>ورود</title>
     <meta charset="UTF-8">
@@ -15,17 +44,17 @@
                 <div class="col-lg-6">
                     <div class="card-body p-4 text-center">
                             <a href="#"><img src="../assets/Img/logo-main.png" alt="logo" class="pt-2 pb-4"></a>
-      
-                        <form action="">
+                        <p style="color: red;"><?php  if($error!==""){ echo $error;}  ?>  </p>
+                        <form action="login.php" method="post">
                             <div class="form-group">
-                                <input type="text" name="user" id="user" class="form-control" required placeholder="نام کاربری">
+                                <input type="text" name="email" id="email" class="form-control"  placeholder=" ایمیل">
                             </div>
                             <div class="form-group mb-4">
-                                <input type="password" name="password" id="password" class="form-control" required placeholder="کلمه عبور">
+                                <input type="password" name="password" id="password" class="form-control"  placeholder="کلمه عبور">
                             </div>
-                            <button type="submit" name="login" id="login" class="btn btn-block py-2 btn-success radius10 my-3">ورود</button>
+                            <button type="submit" name="submit" id="login" class="btn btn-block py-2 btn-success radius10 my-3">ورود</button>
                     
-                            <p>هنوز ثبت نام نکرده اید ؟ <a href="#" class="text-drkprimary">عضویت در سایت</a></p>
+                            <p>هنوز ثبت نام نکرده اید ؟ <a href="register.php" class="text-drkprimary">عضویت در سایت</a></p>
                            </form>
          
                     </div>
