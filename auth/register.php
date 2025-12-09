@@ -1,5 +1,6 @@
 ﻿<?php
 	require_once "../functions/users.php";
+	require_once "../functions/helper.php";
 	session_start();
 	
 	if(isset($_SESSION['user'])){
@@ -43,8 +44,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1">
-    <link href="../assets/Css/Main.css" rel="stylesheet"/>
-    <link href="../assets/Css/Style.css" rel="stylesheet"/>
+    <link href="<?php echo asset('/assets/Css/Main.css')?>" rel="stylesheet" />
+    <link href="<?php echo asset('/assets/Css/Style.css')?>" rel="stylesheet" />
 </head>
 <body class="rtl bg-greengrad min-h">
 <section class="container maxw">
@@ -53,7 +54,7 @@
 
             <div class="col-lg-6">
                 <div class="card-body p-4 text-center">
-                    <a href="#"><img src="../assets/Img/logo-main.png" alt="logo" class="pt-2 pb-4"></a>
+                    <a href="#"><img src="<?php echo asset('/assets/Img/logo-main.png')?>" alt="logo" class="pt-2 pb-4"></a>
                     <p style="color: red;"><?php if($error!==""){
 							echo $error;
 						} ?>  </p>
@@ -80,7 +81,7 @@
                 </div>
             </div>
             <div class="col-lg-6 m-auto">
-                <img src="../assets/Img/login.jpg" class="img-fluid d-lg-block d-none"/>
+                <img src="<?php echo asset('/assets/Img/login.jpg')?>" class="img-fluid d-lg-block d-none" />
             </div>
         </div>
     </div>
