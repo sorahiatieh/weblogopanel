@@ -2,6 +2,9 @@
 	require_once "../functions/users.php";
 	session_start();
  
+    if(isset($_SESSION['user'])){
+	    header('Location: ../panel/index.php');
+    }
 	$error="";
 	if(isset($_POST['submit'])){
 		if(
@@ -9,18 +12,12 @@
 			&& isset($_POST['password']) && !empty($_POST['password'])
 		){
             $user=checkUser($_POST['email']);
-			if($user){
-				if(password_verify($_POST['password'],$user->password)){
+			if($user && password_verify($_POST['password'],$user->password)){
                     $_SESSION['user']=$user->email;
-					header('Location: ../index.php');
-					
-					}else{
-						$error="اطلاعات وارد شده نامعتبر میباشد!";
-					}
+					header('Location: ../panel/index.php');
 				}else{
 				$error="اطلاعات وارد شده نامعتبر میباشد!";
 				}
-			
 		}else{
 			$error = "لطفا تمام فیلد ها را تکمیل کنید";
 		}
