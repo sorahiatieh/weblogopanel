@@ -14,7 +14,7 @@
 				</a>
 			</li>
 			<li data-toggle="tooltip" title="خروج">
-				<a href="login.html" class="go-to-page">
+				<a href="auth/login.php" class="go-to-page">
 					<i class="icon ti-power-off"></i>
 				</a>
 			</li>
@@ -25,8 +25,8 @@
 			<li>
 				<a href="#">کاربران</a>
 				<ul>
-					<li><a href="#">ایجاد کاربر</a></li>
-					<li><a href="#">لیست کاربران</a></li>
+					<li><a href="<?= url('/panel/users/create.php') ?>">ایجاد کاربر</a></li>
+					<li><a href="<?= url('/panel/users/index.php') ?>">لیست کاربران</a></li>
 				</ul>
 			</li>
 		</ul>
