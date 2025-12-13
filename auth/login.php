@@ -1,6 +1,6 @@
 ﻿<?php
 	require_once "../functions/users.php";
-	require_once "../functions/helper.php";
+	require_once "../functions/helpers.php";
  
 	session_start();
  
