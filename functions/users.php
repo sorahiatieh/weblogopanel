@@ -1,14 +1,14 @@
 <?php
 
-require_once "../functions/DB.php";
+require_once "DB.php";
 
-function createUser($name,$email,$password)
+function createUser($name,$email,$password,$image)
 {
-    $hashed_password = password_hash($_POST['password'],PASSWORD_DEFAULT);
-    $sql = "INSERT INTO users SET name=?, email=?, password=?, created_at=now()";
+    $hashed_password = password_hash($password,PASSWORD_DEFAULT);
+    $sql = "INSERT INTO users SET name=?, email=?, password=?,image=?, created_at=now()";
      global $conn;
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$name,$email,$hashed_password]);
+    $stmt->execute([$name,$email,$hashed_password],$image);
 }
 
 function checkUser($email){
