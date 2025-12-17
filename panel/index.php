@@ -1,14 +1,16 @@
 <?php
 	require_once "../functions/helpers.php";
-    include "layouts/head.php";
-    include "layouts/navigation.php";
-    include "layouts/header.php";
 	
 	session_start();
 	
 	if(!isset($_SESSION['user'])){
 		header('Location: ../auth/login.php');
 	}
+    include "layouts/head.php";
+    include "layouts/navigation.php";
+    include "layouts/header.php";
+	
+	
 	
 ?>
 	<main class="main-content">

@@ -201,24 +201,8 @@
                                 <input type="text" class="form-control text-left" dir="rtl" name="password">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label  class="col-sm-2 col-form-label">واتس اپ</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control text-left"  dir="rtl" name="whatsapp">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label  class="col-sm-2 col-form-label">تلگرام</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control text-left"  dir="rtl" name="telegram">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label  class="col-sm-2 col-form-label">اینستاگرام</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control text-left"  dir="rtl" name="instagram">
-                            </div>
-                        </div>
+                        
+                        
                         <div class="form-group row">
 							<label class="col-sm-2 col-form-label" for="file"> آپلود عکس </label>
 							<input  class="col-sm-10" type="file" class="form-control-file" id="file">

@@ -1,15 +1,16 @@
 <?php
 	require_once "../../functions/helpers.php";
-	require_once "../../functions/users.php";
-	include "../layouts/head.php";
-	include "../layouts/navigation.php";
-	include "../layouts/header.php";
-	
 	session_start();
 	
 	if(!isset($_SESSION['user'])){
 		header('Location: ../auth/login.php');
 	}
+	require_once "../../functions/users.php";
+	include "../layouts/head.php";
+	include "../layouts/navigation.php";
+	include "../layouts/header.php";
+	
+	
 	
 	$error="";
     $message="";

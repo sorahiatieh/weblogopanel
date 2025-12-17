@@ -27,3 +27,10 @@ function checkPassword($password){
     }
     return true;
 }
+function getAllUsers(){
+	$sql="SELECT * FROM users";
+	global $conn;
+	$stmt=$conn->prepare($sql);
+	$stmt->execute();
+	return $stmt->fetchAll();
+}
