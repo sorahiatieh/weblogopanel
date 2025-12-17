@@ -1,10 +1,13 @@
 <?php
 	require_once "../../functions/helpers.php";
+	require_once "../../functions/users.php";
 	include "../layouts/head.php";
 	include "../layouts/navigation.php";
 	include "../layouts/header.php";
 	
 	$error="";
+    $message="";
+    
 	if(isset($_POST['submit'])){
 		if(
 			isset($_POST['name']) && !empty($_POST['name'])
@@ -18,8 +21,7 @@
 					else{
 						// create new user
                         if(!empty($_FILES['image'])){
-                            move_uploaded_file($_FILES['image']['temp'],__DIR__."/images/".$_FILES['image']['name']);
-                            $image=$_FILES['image']['name'];
+                            $image = uploadImage($_FILES['image']);
                         }
 						createUser($_POST['name'],$_POST['email'],$_POST['password'],$image);
 						$message="کاربر جدید ذخیره شد.";
@@ -36,13 +38,17 @@
 <main class="main-content">
     <div class="card">
         <div class="card-body">
-            
+            <p style="color: red;"><?php if($error!==""){
+			        echo $error;
+		        } ?> 
+            </p>
+            <p style="color: green;"><?php if($message!==""){
+			        echo $message;
+		        } ?>
+            </p>
             <div class="container">
                 <h6 class="card-title">ایجاد کاربر</h6>
-                <p style="color: red;"><?php if($error!==""){
-			            echo $error;
-		            } ?>  </p>
-                <form method="POST" >
+                <form method="POST" action="create.php" enctype="multipart/form-data">
                     <div class="form-group row">
                         <label  class="col-sm-2 col-form-label">نام و نام خانوادگی</label>
                         <div class="col-sm-10">
@@ -56,41 +62,17 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label  class="col-sm-2 col-form-label">موبایل</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control text-left"  dir="rtl" name="mobile">
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label  class="col-sm-2 col-form-label">پسورد</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control text-left" dir="rtl" name="password">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label  class="col-sm-2 col-form-label">واتس اپ</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control text-left"  dir="rtl" name="whatsapp">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label  class="col-sm-2 col-form-label">تلگرام</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control text-left"  dir="rtl" name="telegram">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label  class="col-sm-2 col-form-label">اینستاگرام</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control text-left"  dir="rtl" name="instagram">
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="file"> آپلود عکس </label>
-                        <input  class="col-sm-10" type="file" class="form-control-file" id="file">
+                        <input  name="image" type="file" class="col-sm-10 form-control-file" id="file">
                     </div>
                     <div class="form-group row">
-                        <button type="submit" class="btn btn-success btn-uppercase">
+                        <button type="submit" name="submit" class="btn btn-success btn-uppercase">
                             <i class="ti-check-box m-r-5"></i> ذخیره
                         </button>
 

@@ -8,7 +8,8 @@ function createUser($name,$email,$password,$image)
     $sql = "INSERT INTO users SET name=?, email=?, password=?,image=?, created_at=now()";
      global $conn;
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$name,$email,$hashed_password],$image);
+	//var_dump($stmt->errorInfo());
+	$stmt->execute([$name, $email, $hashed_password, $image]);
 }
 
 function checkUser($email){
