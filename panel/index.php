@@ -4,6 +4,12 @@
     include "layouts/navigation.php";
     include "layouts/header.php";
 	
+	session_start();
+	
+	if(!isset($_SESSION['user'])){
+		header('Location: ../auth/login.php');
+	}
+	
 ?>
 	<main class="main-content">
 	<div class="row">

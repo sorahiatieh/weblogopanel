@@ -5,7 +5,7 @@ $username = "root";
 $password = "";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=mydb", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=weblog", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "UPDATE users SET name='mohammad' WHERE id=2";
     $conn->exec($sql);
