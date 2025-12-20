@@ -42,16 +42,16 @@
                             foreach($users as $user){
                         ?>
 							<tr>
-								<td class="text-center align-middle"><?php echo $i++; ?></td>
+								<td class="text-center align-middle"><?= $i++; ?></td>
 								<td class="text-center align-middle">
 									<figure class="avatar avatar">
-										<img src="<?php echo asset('/images/'.$user->image)?>" class="rounded-circle" alt="image">
+										<img src="<?= asset('/images/'.$user->image)?>" class="rounded-circle" alt="image">
 									</figure>
 								</td>
-								<td class="text-center align-middle"><?php echo $user->name ?></td>
-								<td class="text-center align-middle"><?php echo $user->email ?></td>
+								<td class="text-center align-middle"><?= $user->name ?></td>
+								<td class="text-center align-middle"><?= $user->email ?></td>
 								<td class="text-center align-middle">
-									<a class="btn btn-outline-info" href="#">
+									<a class="btn btn-outline-info" href="<?= url('/panel/users/edit.php?id='). $user->id ?>">
 										ویرایش
 									</a>
 								</td>
@@ -60,7 +60,7 @@
 										حذف
 									</a>
 								</td>
-								<td class="text-center align-middle"><?php echo $user->created_at ?></td>
+								<td class="text-center align-middle"><?= $user->created_at ?></td>
 							</tr>
                         <?php
                             }
