@@ -19,31 +19,23 @@
 	$message="";
 	
 	if(isset($_POST['submit'])){
-		if(
-			isset($_POST['name']) && !empty($_POST['name'])
-			&& isset($_POST['email']) && !empty($_POST['email'])
-			&& isset($_POST['password']) && !empty($_POST['password'])
-		){
+		if(isset($_POST['name']) && !empty($_POST['name'])){
+            if(isset($_POST['password']) && !empty($_POST['password'])){
 			if(checkPassword($_POST['password'])){
-				if(checkUser($_POST['email'])){
-					$error="این ایمیل تکراری است";
-				}
-				else{
-					// create new user
-					if(!empty($_FILES['image'])){
-						$image = uploadImage($_FILES['image']);
-					}
-					createUser($_POST['name'],$_POST['email'],$_POST['password'],$image);
-					$message="کاربر جدید ذخیره شد.";
-				}
+				updateUser($id, $_POST['name'], $_POST['password'], $_FILES['image']);
+				$message="اطلاعات کاربر با موفقیت ویرایش شد.";
+            }
 			}else{
 				$error="مقدار پسورد و تکرار آن برابر نیستند";
 			}
-		}
+            }else{
+			updateUser($id, $_POST['name'], $_POST['password'], $_FILES['image']);
+        }
+	}
 		else{
 			$error="لطفا تمام فیلد ها را تکمیل کنید";
 		}
-	}
+	
 ?>
 	<main class="main-content">
 		<div class="card">
@@ -73,7 +65,7 @@
                         <div class="form-group row">
                             <label  class="col-sm-2 col-form-label">ایمیل</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control text-left" dir="rtl" name="email" value="<?= $user->email ?>">
+                                <input disabled type="text" class="form-control text-left" dir="rtl" name="email" value="<?= $user->email ?>">
                             </div>
                         </div>
                         

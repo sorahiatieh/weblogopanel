@@ -1,6 +1,7 @@
 <?php
 
 require_once "DB.php";
+require_once "helpers.php";
 
 function createUser($name,$email,$password,$image)
 {
@@ -21,14 +22,14 @@ function checkUser($email){
 
 }
 	
-	function getUser($id){
-		$sql = "SELECT * FROM users WHERE id=?";
-		global $conn;
-		$stmt = $conn->prepare($sql);
-		$stmt->execute([$id]);
-		return  $stmt->fetch();
-		
-	}
+function getUser($id){
+	$sql = "SELECT * FROM users WHERE id=?";
+	global $conn;
+	$stmt = $conn->prepare($sql);
+	$stmt->execute([$id]);
+	return  $stmt->fetch();
+	
+}
 
 function checkPassword($password){
     if(strlen($password) < 6){
@@ -45,6 +46,19 @@ function getAllUsers(){
 }
 
 function updateUser($id,$name,$password,$image){
+	$user = getUser($id);
+	if(!empty($password)){
+		$password = password_hash($password,PASSWORD_DEFAULT);
+	}else{
+		$password=$user->password;
+	}
+	if(isset($image) && !empty($image['name'])){
+		uploadImage($image);
+		$image=$image['name'];
+	}else{
+		$image=$user->image;
+	}
+	
 	$sql = "UPDATE users SET name=?, password=?, image=?, created_at=now() WHERE id=?";
 	global $conn;
 	$stmt = $conn->prepare($sql);
