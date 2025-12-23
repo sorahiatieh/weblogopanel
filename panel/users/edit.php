@@ -23,7 +23,8 @@
             if(isset($_POST['password']) && !empty($_POST['password'])){
 			if(checkPassword($_POST['password'])){
 				updateUser($id, $_POST['name'], $_POST['password'], $_FILES['image']);
-				$message="اطلاعات کاربر با موفقیت ویرایش شد.";
+				//$message="اطلاعات کاربر با موفقیت ویرایش شد.";
+                header('Location: index.php');
             }
 			}else{
 				$error="مقدار پسورد و تکرار آن برابر نیستند";
