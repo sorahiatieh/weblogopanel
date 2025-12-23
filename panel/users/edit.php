@@ -27,10 +27,11 @@
                 header('Location: index.php');
             }
 			}else{
-				$error="مقدار پسورد و تکرار آن برابر نیستند";
+				$error="رمز عبور باید حداقل 6 کاراکتر باشد.";
 			}
             }else{
 			updateUser($id, $_POST['name'], $_POST['password'], $_FILES['image']);
+			header('Location: index.php');
         }
 	}
 		else{

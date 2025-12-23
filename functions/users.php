@@ -64,3 +64,10 @@ function updateUser($id,$name,$password,$image){
 	$stmt = $conn->prepare($sql);
 	$stmt->execute([$name, $password, $image, $id]);
 }
+
+function deleteUser($id){
+	$sql = "DELETE FROM users WHERE id=?";
+	global $conn;
+	$stmt = $conn->prepare($sql);
+	$stmt->execute([$id]);
+}
