@@ -1,8 +1,8 @@
 <?php
-	require_once "../../functions/users.php";
+	require_once "../../functions/categories.php";
 	
 	if(isset($_GET['id'])){
 		$id = $_GET['id'];
-		deleteUser($id);
+		deleteCategory($id);
 		header("location: index.php");
 	}
