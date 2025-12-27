@@ -40,7 +40,7 @@
             </p>
             <div class="container">
                 <h6 class="card-title">ایجاد دسته بندی</h6>
-                <form method="POST" action="create.php" enctype="multipart/form-data">
+                <form method="POST" action="create.php">
                     <div class="form-group row">
                         <label  class="col-sm-2 col-form-label">عنوان دسته بندی</label>
                         <div class="col-sm-10">
