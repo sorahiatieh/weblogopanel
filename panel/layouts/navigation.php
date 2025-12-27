@@ -6,6 +6,11 @@
 					<i class="icon ti-user"></i>
 				</a>
 			</li>
+            <li data-toggle="tooltip" title="بلاگ">
+                <a href="#blog" title=" بلاگ">
+                    <i class="icon ti-book"></i>
+                </a>
+            </li>
 		</ul>
 		<ul>
 			<li data-toggle="tooltip" title="ویرایش پروفایل">
@@ -30,5 +35,14 @@
 				</ul>
 			</li>
 		</ul>
+        <ul id="blog">
+            <li>
+                <a href="#">بلاگ</a>
+                <ul>
+                    <li><a href="<?= url('/panel/categories/create.php') ?>">ایجاد دسته بندی</a></li>
+                    <li><a href="<?= url('/panel/categories/index.php') ?>">لیست دسته بندی ها</a></li>
+                </ul>
+            </li>
+        </ul>
 	</div>
 </div>
