@@ -37,10 +37,17 @@
 		</ul>
         <ul id="blog">
             <li>
-                <a href="#">بلاگ</a>
+                <a href="#">دسته بندی</a>
                 <ul>
                     <li><a href="<?= url('/panel/categories/create.php') ?>">ایجاد دسته بندی</a></li>
                     <li><a href="<?= url('/panel/categories/index.php') ?>">لیست دسته بندی ها</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">مقالات</a>
+                <ul>
+                    <li><a href="<?= url('/panel/articles/create.php') ?>">ایجاد مقاله</a></li>
+                    <li><a href="<?= url('/panel/articles/index.php') ?>">لیست مقاله ها</a></li>
                 </ul>
             </li>
         </ul>

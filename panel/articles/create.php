@@ -1,45 +1,38 @@
-<?php require_once "../../functions/helpers.php" ?>
-<?php require_once "../../functions/users.php" ?>
 <?php
+	require_once "../../functions/helpers.php";
+	require_once "../../functions/articles.php";
+	require_once "../../functions/categories.php";
+	require_once "../../functions/users.php";
+ 
 session_start();
 
 if(!isset($_SESSION['user'])){
     header('location: ../auth/login.php');
 }
+$user_id=checkUser($_SESSION['user'])->id;
 
-?>
-<?php
-
+$categories=getAllCategories();
 $error = "";
 $message = "";
 if (isset($_POST['submit'])) {
     if (
-        isset($_POST['name']) && !empty($_POST['name'])
-        && isset($_POST['email']) && !empty($_POST['email'])
-        && isset($_POST['password']) && !empty($_POST['password'])
+        isset($_POST['title']) && !empty($_POST['title'])
+        && isset($_POST['body']) && !empty($_POST['body'])
+        && isset($_POST['category_id']) && !empty($_POST['category_id'])
+        && isset($_POST['status']) && !empty($_POST['status'])
+        && isset($_FILES['image']) && !empty($_FILES['image']['name'])
     ){
-        if (checkPassword($_POST['password'])) {
-            if (checkUser($_POST['email'])) {
-                $error = "این ایمیل تکراری است";
-            } else {
-                if(!empty($_FILES['image'])){
-                  $image = uploadImage($_FILES['image']);
-                }
-                createUser($_POST['name'], $_POST['email'], $_POST['password'],$image);
-                $message="کاربر ذخیره شد";
-            }
-        } else {
-            $error = "رمز عبور شما حداقل باید 6 کاراکتر باشد";
-        }
+        createArticle($_POST['title'], $_POST['body'],$user_id, $_POST['category_id'], $_POST['status'], $_FILES['image']);
+        header('location: index.php');
     } else {
         $error = "لطفا تمام فیلد ها را تکمیل کنید";
     }
 }
+	include "../layouts/head.php";
+	include "../layouts/navigation.php";
+	include "../layouts/header.php";
 
 ?>
-<?php include "../layouts/head.php" ?>
-<?php include "../layouts/navigation.php" ?>
-<?php include "../layouts/header.php" ?>
 <main class="main-content">
     <div class="card">
         <div class="card-body">
@@ -50,25 +43,39 @@ if (isset($_POST['submit'])) {
                     echo $message;
                 } ?>  </p>
             <div class="container">
-                <h6 class="card-title">ایجاد کاربر</h6>
+                <h6 class="card-title">ایجاد مقاله</h6>
                 <form method="POST" action="create.php" enctype="multipart/form-data">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">نام و نام خانوادگی</label>
+                        <label class="col-sm-2 col-form-label">عنوان مقاله</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control text-left" dir="rtl" name="name">
+                            <input type="text" class="form-control text-left" dir="rtl" name="title">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">ایمیل</label>
+                        <label class="col-sm-2 col-form-label">متن مقاله</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control text-left" dir="rtl" name="email">
+                            <textarea class="form-control text-left" dir="rtl" name="body" cols="30" rows="10"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">پسورد</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control text-left" dir="rtl" name="password">
-                        </div>
+                        <lable for="exampleFromControlSelect1">دسته بندی</lable>
+                        <select class="form-control" name="category_id" id="exampleFromControlSelect1">
+                            <?php
+                                foreach ($categories as $category) {
+                            ?>
+                            <option value="<?= $category->id ?>"><?= $category->title ?></option>
+                                    <?php
+                                }
+                                    ?>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <lable for="exampleFromControlSelect2">وضعیت</lable>
+                        <select class="form-control" name="status" id="exampleFromControlSelect2">
+                            <option value="draft">پیش نویس</option>
+                            <option value="published">منتشر شده</option>
+                            <option value="archived">بایگانی</option>
+                        </select>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="file"> آپلود عکس </label>

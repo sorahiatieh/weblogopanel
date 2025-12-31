@@ -3,12 +3,13 @@
 require_once "DB.php";
 require_once "helpers.php";
 
-function createArticle($title,$body,$category_id,$status,$image)
+function createArticle($title,$body,$user_id,$category_id,$status,$image)
 {
-    $sql = "INSERT INTO articles SET title=?, body=?, category_id=?, status=?, image=?, created_at=now()";
+	$new_image=uploadImage($image);
+    $sql = "INSERT INTO articles SET title=?, body=?, user_id=?, category_id=?, status=?, image=?, created_at=now()";
      global $conn;
     $stmt = $conn->prepare($sql);
-	$stmt->execute([$title, $body, $category_id, $status, $image]);
+	$stmt->execute([$title, $body, $user_id, $category_id, $status, $new_image]);
 }
 	
 function getArticles($id){
