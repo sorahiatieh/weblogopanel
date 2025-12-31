@@ -3,27 +3,16 @@
 require_once "DB.php";
 require_once "helpers.php";
 
-function createUser($name,$email,$password,$image)
+function createArticle($title,$body,$category_id,$status,$image)
 {
-    $hashed_password = password_hash($password,PASSWORD_DEFAULT);
-    $sql = "INSERT INTO users SET name=?, email=?, password=?,image=?, created_at=now()";
+    $sql = "INSERT INTO articles SET title=?, body=?, category_id=?, status=?, image=?, created_at=now()";
      global $conn;
     $stmt = $conn->prepare($sql);
-	//var_dump($stmt->errorInfo());
-	$stmt->execute([$name, $email, $hashed_password, $image]);
-}
-
-function checkUser($email){
-    $sql = "SELECT * FROM users WHERE email=?";
-    global $conn;
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$email]);
-    return  $stmt->fetch();
-
+	$stmt->execute([$title, $body, $category_id, $status, $image]);
 }
 	
-function getUser($id){
-	$sql = "SELECT * FROM users WHERE id=?";
+function getArticles($id){
+	$sql = "SELECT * FROM articles WHERE id=?";
 	global $conn;
 	$stmt = $conn->prepare($sql);
 	$stmt->execute([$id]);
@@ -31,42 +20,32 @@ function getUser($id){
 	
 }
 
-function checkPassword($password){
-    if(strlen($password) < 6){
-        return false;
-    }
-    return true;
-}
-function getAllUsers(){
-	$sql="SELECT * FROM users";
+function getAllArticles(){
+	$sql="SELECT * FROM articles";
 	global $conn;
 	$stmt=$conn->prepare($sql);
 	$stmt->execute();
 	return $stmt->fetchAll();
 }
 
-function updateUser($id,$name,$password,$image){
-	$user = getUser($id);
-	if(!empty($password)){
-		$password = password_hash($password,PASSWORD_DEFAULT);
-	}else{
-		$password=$user->password;
-	}
+function updateArticle($id,$title,$body,$category_id,$status,$image){
+	$article = getArticles($id);
+	
 	if(isset($image) && !empty($image['name'])){
 		uploadImage($image);
 		$image=$image['name'];
 	}else{
-		$image=$user->image;
+		$image=$article->image;
 	}
 	
-	$sql = "UPDATE users SET name=?, password=?, image=?, created_at=now() WHERE id=?";
+	$sql = "UPDATE articles SET title=?, body=?,category_id=?, status=?, image=?, created_at=now() WHERE id=?";
 	global $conn;
 	$stmt = $conn->prepare($sql);
-	$stmt->execute([$name, $password, $image, $id]);
+	$stmt->execute([$title, $body, $category_id, $status, $image, $id]);
 }
 
-function deleteUser($id){
-	$sql = "DELETE FROM users WHERE id=?";
+function deleteArticle($id){
+	$sql = "DELETE FROM articles WHERE id=?";
 	global $conn;
 	$stmt = $conn->prepare($sql);
 	$stmt->execute([$id]);
