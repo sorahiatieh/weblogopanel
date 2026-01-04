@@ -1,7 +1,4 @@
 <?php
-
-//echo  "imo_developer";
-
 $servername = "localhost";
 $username = "root";
 $password = "";

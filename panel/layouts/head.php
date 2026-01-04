@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="<?php echo asset('../panel/vendors/bundle.css')  ?>" type="text/css">
 	<link rel="stylesheet" href="<?php echo asset('../panel/vendors/slick/slick.css')  ?>">
 	<link rel="stylesheet" href="<?php echo asset('../panel/vendors/slick/slick-theme.css')  ?>">
-	<link rel="stylesheet" href="<?php echo asset('../panel/vendors/vmap/jqvmap.min.css')  ?>">
+	<!--<link rel="stylesheet" href="<?php /*echo asset('../panel/vendors/vmap/jqvmap.min.css')  */?>">-->
 	<link rel="stylesheet" href="<?php echo asset('../panel/assets/css/app.css')  ?>" type="text/css">
 </head>
 <body class="small-navigation">
