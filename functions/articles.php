@@ -51,3 +51,19 @@ function deleteArticle($id){
 	$stmt = $conn->prepare($sql);
 	$stmt->execute([$id]);
 }
+
+function translateStatus($status){
+	$fa_status="";
+	switch($status){
+		case "draft":
+			$fa_status="پیش نویس";
+			break;
+		case "published":
+			$fa_status="منتشر شده";
+			break;
+		case "archived":
+			$fa_status="بایگانی";
+			break;
+	}
+	return $fa_status;
+}

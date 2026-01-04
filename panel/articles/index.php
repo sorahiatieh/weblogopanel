@@ -30,6 +30,8 @@ $articles = getAllArticles();
                         <th class="text-center align-middle text-primary">ردیف</th>
                         <th class="text-center align-middle text-primary">عکس</th>
                         <th class="text-center align-middle text-primary">عنوان مقاله</th>
+                        <th class="text-center align-middle text-primary">نویسنده مقاله</th>
+                        <th class="text-center align-middle text-primary">دسته بندی مقاله</th>
                         <th class="text-center align-middle text-primary">متن مقاله</th>
                         <th class="text-center align-middle text-primary">وضعیت</th>
                         <th class="text-center align-middle text-primary">ویرایش</th>
@@ -48,9 +50,11 @@ $articles = getAllArticles();
                             </figure>
                         </td>
                         <td class="text-center align-middle"><?php echo $article->title ?></td>
+                        <td class="text-center align-middle"><?php echo getUser($article->user_id)->name ?></td>
+                        <td class="text-center align-middle"><?php echo getCategories($article->category_id)->title ?></td>
                         <td class="text-center align-middle">
                             <textarea name="" id="" cols="30" rows="10"> <?php echo $article->body ?></td></textarea>
-                        <td class="text-center align-middle"><?php echo $article->status ?></td>
+                        <td class="text-center align-middle"><?php echo translateStatus($article->status) ?></td>
                         <td class="text-center align-middle">
                             <a class="btn btn-outline-info" href="<?php echo url('/panel/articles/edit.php?id=') .$article->id   ?>">
                                 ویرایش
